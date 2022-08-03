@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.swwebviewclientcompaibilitydemo.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home">
+
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue="https://cactus-fixed-value.glitch.me"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_sw_200"
+        android:name="com.example.swwebviewclientcompaibilitydemo.HomeFragment"
+        android:label="@string/title_SW_200"
+        tools:layout="@layout/fragment_dashboard">
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue="https://cactus-fixed-value.glitch.me/index-via-sw-200.html"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_sw_500"
+        android:name="com.example.swwebviewclientcompaibilitydemo.HomeFragment"
+        android:label="@string/title_SW_500"
+        tools:layout="@layout/fragment_notifications">
+
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue="https://cactus-fixed-value.glitch.me/index-via-sw-500.html"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_500"
+        android:name="com.example.swwebviewclientcompaibilitydemo.HomeFragment"
+        android:label="@string/title_500"
+        tools:layout="@layout/fragment_notifications">
+
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue="https://cactus-fixed-value.glitch.me/500?sw=1"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_nonsw_500"
+        android:name="com.example.swwebviewclientcompaibilitydemo.HomeFragment"
+        android:label="@string/title_NonSW_500"
+        tools:layout="@layout/fragment_notifications">
+
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue="https://cactus-fixed-value.glitch.me/500?nosw=1"/>
+    </fragment>
+
+</navigation>
