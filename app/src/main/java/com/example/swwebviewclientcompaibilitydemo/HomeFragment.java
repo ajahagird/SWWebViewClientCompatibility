@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
@@ -21,14 +22,17 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         final WebView webView = binding.webview;
-        webView.setWebViewClient(new WebViewClient(getActivity()));
+        final WebSettings settings = webView.getSettings();
+        settings.setUserAgentString("Amazon.com/22.21.0.100 (Android/10/Android SDK built for x86)");
+
+        webView.setWebViewClient(new WebViewClient(getActivity(), new Recorder()));
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
         if(getArguments() != null) {
             final String url = HomeFragmentArgs.fromBundle(getArguments()).getUrl();
             webView.loadUrl(url);
         } else {
-            webView.loadUrl("https://cactus-fixed-value.glitch.me");
+            webView.loadUrl("https://unruly-zest-blossom.glitch.me");
         }
 
         return root;

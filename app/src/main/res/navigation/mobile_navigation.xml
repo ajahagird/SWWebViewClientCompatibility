@@ -14,30 +14,7 @@
         <argument
             android:name="url"
             app:argType="string"
-            android:defaultValue="https://cactus-fixed-value.glitch.me"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_sw_200"
-        android:name="com.example.swwebviewclientcompaibilitydemo.HomeFragment"
-        android:label="@string/title_SW_200"
-        tools:layout="@layout/fragment_dashboard">
-        <argument
-            android:name="url"
-            app:argType="string"
-            android:defaultValue="https://cactus-fixed-value.glitch.me/index-via-sw-200.html"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_sw_500"
-        android:name="com.example.swwebviewclientcompaibilitydemo.HomeFragment"
-        android:label="@string/title_SW_500"
-        tools:layout="@layout/fragment_notifications">
-
-        <argument
-            android:name="url"
-            app:argType="string"
-            android:defaultValue="https://cactus-fixed-value.glitch.me/index-via-sw-500.html"/>
+            android:defaultValue="https://unruly-zest-blossom.glitch.me"/>
     </fragment>
 
     <fragment
@@ -49,7 +26,7 @@
         <argument
             android:name="url"
             app:argType="string"
-            android:defaultValue="https://cactus-fixed-value.glitch.me/500?sw=1"/>
+            android:defaultValue="https://unruly-zest-blossom.glitch.me/500"/>
     </fragment>
 
     <fragment
@@ -61,7 +38,7 @@
         <argument
             android:name="url"
             app:argType="string"
-            android:defaultValue="https://cactus-fixed-value.glitch.me/500?nosw=1"/>
+            android:defaultValue="https://unruly-zest-blossom.glitch.me/500?nosw=1"/>
     </fragment>
 
 </navigation>
