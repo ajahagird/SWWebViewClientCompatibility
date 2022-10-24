@@ -18,27 +18,27 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_500"
+        android:id="@+id/navigation_200"
         android:name="com.example.swwebviewclientcompaibilitydemo.HomeFragment"
-        android:label="@string/title_500"
+        android:label="@string/title_SW_200"
         tools:layout="@layout/fragment_notifications">
 
         <argument
             android:name="url"
             app:argType="string"
-            android:defaultValue="https://unruly-zest-blossom.glitch.me/500"/>
+            android:defaultValue="https://unruly-zest-blossom.glitch.me"/>
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_nonsw_500"
+        android:id="@+id/navigation_nonsw_200"
         android:name="com.example.swwebviewclientcompaibilitydemo.HomeFragment"
-        android:label="@string/title_NonSW_500"
+        android:label="@string/title_NonSW_200"
         tools:layout="@layout/fragment_notifications">
 
         <argument
             android:name="url"
             app:argType="string"
-            android:defaultValue="https://unruly-zest-blossom.glitch.me/500?nosw=1"/>
+            android:defaultValue="https://unruly-zest-blossom.glitch.me?nosw=1"/>
     </fragment>
 
 </navigation>

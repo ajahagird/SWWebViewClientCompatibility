@@ -6,12 +6,12 @@
         android:icon="@drawable/ic_baseline_1k_24"
         android:title="@string/title_home" />
     <item
-        android:id="@+id/navigation_nonsw_500"
+        android:id="@+id/navigation_nonsw_200"
         android:icon="@drawable/ic_baseline_5k_24"
-        android:title="@string/title_NonSW_500" />
+        android:title="@string/title_NonSW_200" />
 
     <item
-        android:id="@+id/navigation_500"
+        android:id="@+id/navigation_200"
         android:icon="@drawable/ic_baseline_4k_24"
-        android:title="@string/title_500" />
+        android:title="@string/title_SW_200" />
 </menu>

@@ -4,5 +4,6 @@
     <string name="title_SW_200">SW 200</string>
     <string name="title_SW_500">SW 500</string>
     <string name="title_NonSW_500">Non SW 500</string>
+    <string name="title_NonSW_200">Non SW 200</string>
     <string name="title_500">500</string>
 </resources>

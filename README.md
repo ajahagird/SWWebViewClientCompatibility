@@ -14,17 +14,41 @@ self.addEventListener("fetch", e => {
 ### Steps
 #### Tab 1 - Home
 * Open the App. 
-* It will register the service worker and reload the page. Look for "Service Worker Installed" confirmation. 
-* Observe native WebViewClient notifications that we recieved both `onPageStarted` and `onPageFinished` event.
+* It will register the service worker and reload the page. Look for "Service Worker Installed" confirmation. It will by default install without nav preload.
+* If this was your first app-start, this page load would be likely without service worker installed.
+* Observe native WebViewClient notifications that we received, `shouldInterceptRequest`, `onLoadResource`, `onPageStarted` and `onPageFinished` event.
 
-#### Tab 2 - Non SW 500
+#### Tab 2 - Non SW 200
 * Go to second tab.
-* It loads the page, bypassing the service worker, that will send 500 HTTP status code. i.e https://unruly-zest-blossom.glitch.me/500?nosw=1
-* You can verify the status code via Dev Tools.
-* Observe that native WebViewClient notifications has additional entry of `onReceivedHttpError` apart from `onPageStarted` and `onPageFinished` event.
+* It loads the page, bypassing the fetch event interception using query parameter, that will send 200 HTTP status code. i.e https://unruly-zest-blossom.glitch.me?nosw=1. This query param is read in fetch handler and not responded with.
+* Observe native WebViewClient notifications that we received, `shouldInterceptRequest`, `onLoadResource`, `onPageStarted` and `onPageFinished` event.
 
-#### Tab 3 - SW 500
+#### Tab 3 - SW 200
 * Go to third tab.
-* It loads the same page, that returns 500, but this time it will be intercepted and processed by Service Workers. i.e https://unruly-zest-blossom.glitch.me/500
+* It loads the same page, that returns 200, but this time it will be intercepted and processed by Service Workers. i.e https://unruly-zest-blossom.glitch.me
 * You can verify the status code via Dev Tools.
-* Observe that native WebViewClient notifications doesn't have entry of `onReceivedHttpError` or any other error.
+* Observe native WebViewClient notifications that we only received `onPageStarted` and `onPageFinished` event, and `shouldInterceptRequest` and`onLoadResource` were missing.
+
+#### With NP, Tab 3 - SW 200
+* On the third tab, click on Enable NP. Wait for 2 seconds till it annouces that "Service Worker Installed" with NP.
+* This actually installs different copy of service worker code that enables NP, reads nav preload response with fallback.
+```
+self.addEventListener("fetch", function (event) {
+  if (event.request.url.indexOf('nosw=1') > -1) {
+    console.log("[SW] nosw=1 detected. ignoring.. ", event.request.url);
+    return;
+  }
+  
+  console.log("[SW] fetching.." , event.request.url);
+  event.respondWith(async function() {
+    // Else, use the preloaded response, if it's there
+    const response = await event.preloadResponse;
+    if (response) return response;
+
+    // Else try the network.
+    return fetch(event.request);
+  }());
+});
+```
+* Refresh the page by clicking on third tab again. 
+* Observe native WebViewClient notifications that we received, `shouldInterceptRequest`, `onLoadResource`, `onPageStarted` and `onPageFinished` event.

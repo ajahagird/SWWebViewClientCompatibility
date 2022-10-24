@@ -10,6 +10,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 
+import androidx.annotation.Nullable;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -39,6 +41,7 @@ public class WebViewClient extends android.webkit.WebViewClient {
         for (String message: recorder.getAllRecordedMessages()) {
             view.loadUrl("javascript:showNativeNotification('"+ message+"')");
         }
+        recorder.reset();
 
         super.onPageFinished(view, url);
     }
@@ -64,6 +67,33 @@ public class WebViewClient extends android.webkit.WebViewClient {
         Log.i("DemoWebViewClient","onReceivedSslError");
         recorder.addMessage("onReceivedSslError - " + getPath(view.getUrl()));
         super.onReceivedSslError(view, handler, error);
+    }
+
+
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+        Log.i("DemoWebViewClient","shouldOverrideUrlLoading - " + request.getUrl().getPath());
+        if(request.isForMainFrame()) {
+            recorder.addMessage("shouldOverrideUrlLoading - " +  request.getUrl().getPath());
+        }
+        return super.shouldOverrideUrlLoading(view, request);
+    }
+
+    @Override
+    public void onLoadResource(WebView view, String url) {
+        Log.i("DemoWebViewClient","onLoadResource - " + getPath(view.getUrl()));
+        recorder.addMessage("onLoadResource - " + getPath(view.getUrl()));
+        super.onLoadResource(view, url);
+    }
+
+    @Nullable
+    @Override
+    public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+        Log.i("DemoWebViewClient","shouldInterceptRequest - " + request.getUrl().getPath());
+        if(request.isForMainFrame()) {
+            recorder.addMessage("shouldInterceptRequest - " + request.getUrl().getPath());
+        }
+        return super.shouldInterceptRequest(view, request);
     }
 
     static String getPath(String incomingUrl) {
