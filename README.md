@@ -16,18 +16,20 @@ self.addEventListener("fetch", e => {
 * Open the App. 
 * It will register the service worker and reload the page. Look for "Service Worker Installed" confirmation. It will by default install without nav preload.
 * If this was your first app-start, this page load would be likely without service worker installed.
-* Observe native WebViewClient notifications that we received, `shouldInterceptRequest`, `onLoadResource`, `onPageStarted` and `onPageFinished` event.
+* Observe native WebViewClient notifications of `shouldInterceptRequest` is received with `isMainFrameRequest=true`
 
 #### Tab 2 - Non SW 200
 * Go to second tab.
 * It loads the page, bypassing the fetch event interception using query parameter, that will send 200 HTTP status code. i.e https://unruly-zest-blossom.glitch.me?nosw=1. This query param is read in fetch handler and not responded with.
-* Observe native WebViewClient notifications that we received, `shouldInterceptRequest`, `onLoadResource`, `onPageStarted` and `onPageFinished` event.
+* Observe native WebViewClient notifications of `shouldInterceptRequest` is received with `isMainFrameRequest=true`
+
 
 #### Tab 3 - SW 200
 * Go to third tab.
 * It loads the same page, that returns 200, but this time it will be intercepted and processed by Service Workers. i.e https://unruly-zest-blossom.glitch.me
 * You can verify the status code via Dev Tools.
-* Observe native WebViewClient notifications that we only received `onPageStarted` and `onPageFinished` event, and `shouldInterceptRequest` and`onLoadResource` were missing.
+* Observe native ServiceWorkerClient notifications of `shouldInterceptRequest` is received with `isMainFrameRequest=false`. Note that when fetch is intercepted `respondWith`, then we receive notification at ServiceWorkerClient rather than at WebViewClient for non nav preload case.
+
 
 #### With NP, Tab 3 - SW 200
 * On the third tab, click on Enable NP. Wait for 2 seconds till it annouces that "Service Worker Installed" with NP.
@@ -51,4 +53,4 @@ self.addEventListener("fetch", function (event) {
 });
 ```
 * Refresh the page by clicking on third tab again. 
-* Observe native WebViewClient notifications that we received, `shouldInterceptRequest`, `onLoadResource`, `onPageStarted` and `onPageFinished` event.
+* Observe native WebViewClient notifications of `shouldInterceptRequest` is received with `isMainFrameRequest=true`, but ServiceWorkerClient notifications of `shouldInterceptRequest` is received with `isMainFrameRequest=false`

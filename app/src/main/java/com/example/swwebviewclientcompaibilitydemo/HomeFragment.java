@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ServiceWorkerController;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -25,10 +26,14 @@ public class HomeFragment extends Fragment {
         final WebSettings settings = webView.getSettings();
         settings.setUserAgentString("Amazon.com/22.21.0.100 (Android/10/Android SDK built for x86)");
 
-        webView.setWebViewClient(new WebViewClient(getActivity(), new Recorder()));
+        Recorder recorder = new Recorder();
+        ServiceWorkerController swController = ServiceWorkerController.getInstance();
+        swController.setServiceWorkerClient(new ServiceWorkerClient(recorder));
+
+        webView.setWebViewClient(new WebViewClient(getActivity(), recorder));
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             final String url = HomeFragmentArgs.fromBundle(getArguments()).getUrl();
             webView.loadUrl(url);
         } else {
